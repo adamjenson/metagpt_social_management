@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant User as U
+    participant Event as E
+    participant Activity as A
+    participant Recommendation as R
+    participant Notification as N
+
+    U->>E: create_event()
+    E->>U: create_event()
+    U->>E: add_invitee(user)
+    E->>U: add_invitee(user)
+    U->>E: coordinate_event()
+    E->>U: coordinate_event()
+    U->>A: get_recommendations()
+    A->>U: get_recommendations()
+    U->>U: discover_activities(location)
+    U->>N: send_notification(message)
+    N->>U: send_notification()

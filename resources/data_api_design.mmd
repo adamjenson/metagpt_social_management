@@ -1,0 +1,50 @@
+classDiagram
+    class User{
+        +username: str
+        +password: str
+        +email: str
+        +phone_number: str
+        +create_event(event: Event) -> None
+        +invite_friend(event: Event, friend: User) -> None
+        +coordinate_event(event: Event) -> None
+        +get_recommendations() -> List[Activity]
+        +get_upcoming_events() -> List[Event]
+        +discover_activities(location: str) -> List[Activity]
+        +send_notification(message: str) -> None
+    }
+    class Event{
+        +name: str
+        +date: datetime
+        +time: datetime
+        +location: str
+        +invitees: List[User]
+        +create_event() -> None
+        +add_invitee(user: User) -> None
+        +coordinate_event() -> None
+    }
+    class Activity{
+        +name: str
+        +location: str
+        +description: str
+        +get_recommendations(location: str) -> List[Activity]
+    }
+    class Recommendation{
+        +user: User
+        +activity: Activity
+        +score: float
+    }
+    class Notification{
+        +user: User
+        +message: str
+        +send_notification() -> None
+    }
+    User "1" -- "0..*" Event: creates
+    User "1" -- "0..*" Event: invites
+    User "1" -- "0..*" Event: coordinates
+    User "1" -- "0..*" Activity: recommends
+    User "1" -- "0..*" Notification: receives
+    Event "1" -- "0..*" User: has
+    Event "1" -- "0..*" User: invited
+    Event "1" -- "0..*" User: coordinated
+    Activity "1" -- "0..*" User: recommended
+    Notification "1" -- "0..*" User: received
